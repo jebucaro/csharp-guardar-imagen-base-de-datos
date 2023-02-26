@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Notes.Properties;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Notes
 {
     public partial class MainForm : Form
     {
-        SqlConnection con;
+        readonly SqlConnection con;
 
         public MainForm()
         {
@@ -17,19 +19,7 @@ namespace Notes
 
             InitializeComponent();
 
-            CrearConexion();
-        }
-
-        void CrearConexion()
-        {
-            SqlConnectionStringBuilder cs = new SqlConnectionStringBuilder
-            {
-                DataSource = @"localhost",
-                InitialCatalog = "samples",
-                IntegratedSecurity = true
-            };
-
-            con = new SqlConnection(cs.ConnectionString);
+            con = new SqlConnection(ConfigurationManager.ConnectionStrings["Dev"].ConnectionString);
         }
 
         private void BtnBrowse_Click(object sender, EventArgs e)
